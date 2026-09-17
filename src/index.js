@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import dns from "node:dns";
 import connectDB from "./db/index.js";
+import { log } from "node:console";
 
 
 dotenv.config({
@@ -14,6 +15,15 @@ if (!process.env.MONGODB_URI) {
 }
 
 connectDB()
+.then(() => {
+    app.listen(process.env.PORT || 8000 , () => {
+        console.log(`server is running at port :  ${process.env.PORT}`);
+    })
+})
+.catch((err) => {
+    console.log("MongoDB connection failed !!" , err);
+    
+})
 
 
 
